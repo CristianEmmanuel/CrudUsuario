@@ -23,17 +23,16 @@ namespace CrudUsuario.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuario()
         {
+        
             return await this.contexto.Usuarios.ToListAsync();
+
         }
 
         [HttpPost]
         public async Task<ActionResult<Usuario>> PostUsuarios(Usuario usuario)
         {
             var exist = await this.contexto.Usuarios.FirstOrDefaultAsync(x => x.Identificacion == usuario.Identificacion);
-            if (exist == null)
-            {
-                return NotFound($"El usuario ya se encuentra creado con el numero de identificacion {usuario.Identificacion}");
-            }
+           
             await this.contexto.Usuarios.AddAsync(usuario);
             await this.contexto.SaveChangesAsync();
             return CreatedAtAction(nameof(GetUsuario), new { identificacion = usuario.Identificacion }, usuario);
@@ -46,16 +45,17 @@ namespace CrudUsuario.Controllers
             await this.contexto.SaveChangesAsync();
             return NoContent();
         }
+
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteUsuario(int id)
+        public async Task<Usuario> DeleteUsuario(int id)
         {
             var find = await this.contexto.Usuarios.FindAsync(id);
-            if (find == null)
-            {
-                return NotFound("El  registro no fue encontrado para eliminar");
-            }
+            //if (find is null)
+            //{
+            //    return NotFound();
+            //}
             this.contexto.Remove(find);
-            return NoContent();
+            return find;
         }
 
     }

@@ -16,7 +16,11 @@ namespace CrudUsuario.Entities
         public string Genero { get; set; }
         public decimal NumeroTelefono { get; set; }
         public string Estado { get; set; }
-        public Atributos Atributos { get; set; }
-       
+        public string Maneja { get; set; }
+        public string Lentes { get; set; }
+        public string Diabetico { get; set; }
+        public string Enfermedades { get; set; }
+
+
     }
 }
